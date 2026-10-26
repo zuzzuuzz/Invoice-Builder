@@ -8,9 +8,31 @@ module.exports = async (req, res) => {
     return res.status(204).end();
   }
 
-  // Support both Vercel KV and Upstash Redis environment variables
-  const kvUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  // Dynamic resolution for any Redis/KV URL & Token injected by Vercel / Upstash integrations
+  const envEntries = Object.entries(process.env);
+  const findVar = (patterns) => {
+    for (const p of patterns) {
+      if (process.env[p]) return process.env[p];
+    }
+    const found = envEntries.find(([k]) => patterns.some((p) => k.includes(p)));
+    return found ? found[1] : null;
+  };
+
+  const kvUrl = findVar([
+    'UPSTASH_REDIS_REST_URL',
+    'KV_REST_API_URL',
+    'STORAGE_REST_API_URL',
+    'STORAGE_URL',
+    '_REST_API_URL'
+  ]);
+
+  const kvToken = findVar([
+    'UPSTASH_REDIS_REST_TOKEN',
+    'KV_REST_API_TOKEN',
+    'STORAGE_REST_API_TOKEN',
+    'STORAGE_TOKEN',
+    '_REST_API_TOKEN'
+  ]);
 
   // Fallback if cloud storage credentials are not yet configured
   if (!kvUrl || !kvToken) {
