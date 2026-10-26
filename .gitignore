@@ -7,6 +7,9 @@ __pycache__/
 bin/cloudflared.exe
 *.exe
 
+# Deployment scripts with keys
+deploy_render.py
+
 # Tunnel runtime state
 data/public_url.txt
 
