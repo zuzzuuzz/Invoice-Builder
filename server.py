@@ -35,8 +35,9 @@ CLOUDFLARED_BIN = os.path.join(BIN_DIR, 'cloudflared.exe')
 DB_PATH = os.path.join(DATA_DIR, 'velourcare.db')
 URL_FILE = os.path.join(DATA_DIR, 'public_url.txt')
 
-PREFERRED_PORT = 8000
+PREFERRED_PORT = int(os.environ.get('PORT', 8000))
 DEFAULT_PIN = "2026"
+IS_CLOUD_ENV = bool(os.environ.get('PORT') or os.environ.get('RENDER') or sys.platform != 'win32')
 
 TUNNEL_URL = None
 TUNNEL_PROCESS = None
@@ -176,6 +177,8 @@ def ensure_cloudflared():
 
 def start_cloudflare_tunnel(local_port):
     global TUNNEL_URL, TUNNEL_PROCESS
+    if IS_CLOUD_ENV:
+        return
     if not os.path.exists(CLOUDFLARED_BIN):
         if not ensure_cloudflared():
             print("[Tunnel] Running in local-only mode.")
@@ -370,8 +373,9 @@ def main():
     # Launch Cloudflare tunnel for remote/phone access
     start_cloudflare_tunnel(port)
 
-    # Launch local browser
-    threading.Thread(target=open_browser, args=(local_url,), daemon=True).start()
+    # Launch local browser (only when running locally on desktop)
+    if not IS_CLOUD_ENV:
+        threading.Thread(target=open_browser, args=(local_url,), daemon=True).start()
 
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(('0.0.0.0', port), VelourcareHandler) as httpd:
