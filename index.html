@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Invoices · Vélourcare Ortho</title>
+  <meta name="theme-color" content="#1E252B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Vélourcare">
+  <link rel="apple-touch-icon" href="assets/logo-emblem-square.png">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&display=swap">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/invoice.css">
+  <style id="page-size">@page { size: A4; margin: 0; }</style>
+</head>
+<body>
+  <div class="app" id="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#/invoices" aria-label="Vélourcare Ortho — Invoices">
+        <img src="assets/logo-emblem.png" alt="">
+        <div class="brand-text"><span class="b1">VÉLOURCARE</span><span class="b2">ORTHO</span></div>
+      </a>
+      <div class="brand-sub">Invoice Studio</div>
+
+      <a class="btn btn-gold btn-block" href="#/invoice/new" data-icon="plus">New invoice</a>
+
+      <nav class="nav">
+        <a href="#/invoices" data-nav="invoices" data-icon="file">Invoices <span class="count" data-count="invoices" title="Open invoices"></span></a>
+        <a href="#/clients" data-nav="clients" data-icon="users">Clients <span class="count" data-count="clients"></span></a>
+        <a href="#/services" data-nav="services" data-icon="box">Services</a>
+        <a href="#/settings" data-nav="settings" data-icon="settings">Settings</a>
+      </nav>
+
+      <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px;">
+        <button type="button" class="btn btn-sm btn-dark" id="btn-phone-connect" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.14); color:#f5f0e4; justify-content:flex-start; padding:0 12px; gap:9px;">
+          <svg class="i i-sm" style="color:var(--gold)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          <span>Connect Phone</span>
+        </button>
+
+        <div class="sidebar-foot">
+          <div id="sync-indicator"><span class="dot"></span><span id="sync-text">Cloud Sync Active</span></div>
+          <div style="margin-top:4px;">Encrypted SQLite &amp; Daily Rolling Backups.</div>
+        </div>
+      </div>
+    </aside>
+
+    <main id="view" class="main"></main>
+  </div>
+
+  <div id="print-root"></div>
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+
+  <script src="lib/qrcode.min.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/invoice-template.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

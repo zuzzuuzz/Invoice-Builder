@@ -1,0 +1,22 @@
+{
+  "name": "Vélourcare Ortho — Invoice Studio",
+  "short_name": "Vélourcare",
+  "description": "Digital Orthodontic Treatment Planning & Clear Aligner Invoicing",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F7F5EF",
+  "theme_color": "#1E252B",
+  "icons": [
+    {
+      "src": "assets/logo-emblem-square.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/favicon.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ]
+}

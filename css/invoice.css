@@ -1,0 +1,190 @@
+/* ==========================================================================
+   Invoice document — shared by live preview and print/PDF
+   Brand: Gold #b89b69 · Deep gold #9a7c4d · Ink #1E252B · Cream #F7F5EF
+   ========================================================================== */
+
+.inv {
+  --i-gold: #b89b69;
+  --i-gold-d: #8a6d3f;
+  --i-gold-l: #f5f0e4;
+  --i-ink: #1E252B;
+  --i-ink-2: #3a4650;
+  --i-muted: #6f767d;
+  --i-line: #e7e1d5;
+
+  position: relative;
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 16mm 17mm 14mm;
+  background: #fff;
+  color: var(--i-ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 9.2pt;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.inv.paper-Letter { width: 8.5in; min-height: 11in; }
+.inv *, .inv *::before, .inv *::after { box-sizing: border-box; }
+
+.inv .ph { color: #b9b3a8; font-style: italic; }
+.inv .lbl {
+  font-size: 7pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--i-gold-d); margin-bottom: 2.2mm;
+}
+
+/* Top gold rule */
+.inv-rule {
+  position: absolute; top: 0; left: 0; right: 0; height: 2.2mm;
+  background: linear-gradient(90deg, var(--i-ink) 0 28%, var(--i-gold) 28% 100%);
+}
+
+/* Header */
+.inv-head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 7mm; border-bottom: 1px solid var(--i-line); }
+.inv-brand { display: flex; align-items: center; gap: 4mm; }
+.inv-logo { height: 17mm; width: auto; object-fit: contain; }
+.inv-wordmark { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.inv-wordmark .wm1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: 15pt; letter-spacing: .06em; color: var(--i-ink); }
+.inv-wordmark .wm2 { font-size: 6.6pt; font-weight: 800; letter-spacing: .62em; padding-left: .62em; color: var(--i-gold); margin-top: 1.8mm; }
+.inv-title { text-align: right; }
+.inv-title h1 {
+  margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-style: italic;
+  font-size: 27pt; line-height: 1; color: var(--i-ink); letter-spacing: -.01em;
+}
+.inv-no { margin-top: 2.5mm; font-size: 9pt; font-weight: 600; color: var(--i-muted); letter-spacing: .04em; }
+
+/* Meta */
+.inv-meta { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10mm; padding: 7mm 0 6mm; }
+.inv-party { color: var(--i-ink-2); font-size: 8.8pt; line-height: 1.55; word-break: break-word; }
+.inv-party .party-name { font-weight: 700; color: var(--i-ink); font-size: 9.6pt; margin-bottom: .6mm; }
+.inv-facts { margin: 0; display: flex; flex-direction: column; gap: 1.6mm; }
+.inv-facts > div { display: flex; justify-content: space-between; gap: 3mm; border-bottom: 1px dashed var(--i-line); padding-bottom: 1.4mm; }
+.inv-facts dt { color: var(--i-muted); font-size: 8.2pt; }
+.inv-facts dd { margin: 0; font-weight: 600; font-size: 8.6pt; text-align: right; }
+
+/* Amount due banner */
+.inv-due {
+  display: flex; align-items: baseline; gap: 4mm; flex-wrap: wrap;
+  background: var(--i-gold-l); border-left: 1.2mm solid var(--i-gold);
+  padding: 4.5mm 6mm; border-radius: 0 2mm 2mm 0; margin-bottom: 7mm;
+}
+.inv-due .due-amt { font-family: 'Playfair Display', Georgia, serif; font-size: 19pt; font-weight: 700; color: var(--i-ink); line-height: 1.1; }
+.inv-due .due-cur { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 600; color: var(--i-gold-d); letter-spacing: .06em; }
+.inv-due .due-txt { font-size: 10pt; color: var(--i-ink-2); font-weight: 500; }
+
+/* Items */
+.inv-items { width: 100%; border-collapse: collapse; }
+.inv-items thead th {
+  font-size: 7pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--i-muted);
+  text-align: left; padding: 0 2.5mm 2.5mm; border-bottom: 1.4px solid var(--i-ink);
+}
+.inv-items td { padding: 3.2mm 2.5mm; border-bottom: 1px solid var(--i-line); vertical-align: top; }
+.inv-items tr { page-break-inside: avoid; break-inside: avoid; }
+.inv-items .c-idx { width: 9mm; color: var(--i-gold-d); font-weight: 600; font-size: 8pt; padding-left: 0; }
+.inv-items .c-num { text-align: right; white-space: nowrap; width: 25mm; font-variant-numeric: tabular-nums; }
+.inv-items thead .c-num { text-align: right; }
+.inv-items th:last-child, .inv-items td:last-child { padding-right: 0; }
+.inv-items .c-amt { font-weight: 600; }
+.inv-items .it-name { font-weight: 600; color: var(--i-ink); }
+.inv-items .it-desc { color: var(--i-muted); font-size: 8.2pt; margin-top: .6mm; line-height: 1.45; }
+.inv-items .empty-row { text-align: center; color: #b9b3a8; font-style: italic; padding: 8mm 0; }
+
+/* Summary */
+.inv-summary { display: grid; grid-template-columns: 1fr 74mm; gap: 10mm; margin-top: 5mm; page-break-inside: avoid; break-inside: avoid; }
+.inv-notes p { margin: 0; color: var(--i-ink-2); font-size: 8.6pt; }
+.inv-totals { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.inv-totals td { padding: 1.7mm 0; font-size: 9pt; color: var(--i-ink-2); }
+.inv-totals td:last-child { text-align: right; white-space: nowrap; }
+.inv-totals tr.tot td { border-top: 1px solid var(--i-line); padding-top: 2.6mm; font-weight: 600; color: var(--i-ink); }
+.inv-totals tr.bal td {
+  border-top: 1.4px solid var(--i-ink); padding-top: 3mm; font-weight: 700; font-size: 11pt; color: var(--i-ink);
+}
+.inv-totals tr.bal td span { font-size: 8pt; font-weight: 600; color: var(--i-muted); }
+
+/* Payment & Bank Details */
+.inv-pay {
+  margin-top: 8mm; padding: 5mm 6mm; border: 1px solid var(--i-line); border-radius: 2.5mm; background: #fcfbf8;
+  page-break-inside: avoid; break-inside: avoid;
+}
+.inv-pay-wrapper {
+  display: flex; gap: 6mm; align-items: flex-start; justify-content: space-between;
+}
+.inv-pay-details {
+  flex: 1; min-width: 0;
+}
+.inv-pay .pay-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.8mm 6mm; }
+.inv-pay .pay-grid > div { display: flex; flex-direction: column; }
+.inv-pay .pay-grid span { font-size: 7.2pt; color: var(--i-muted); }
+.inv-pay .pay-grid strong { font-size: 8.8pt; font-weight: 600; word-break: break-all; color: var(--i-ink); }
+.inv-pay .pay-link, .inv-pay .pay-other, .inv-pay .pay-ref { margin-top: 2.5mm; font-size: 8.2pt; color: var(--i-ink-2); }
+.inv-pay .pay-ref { color: var(--i-muted); }
+
+.inv-pay-qr {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: #ffffff; border: 1px solid var(--i-line); border-radius: 2mm; padding: 2.5mm 3mm;
+  flex: none; min-width: 28mm; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.inv-pay-qr .pay-qr-img {
+  width: 25mm; height: 25mm; object-fit: contain; display: block;
+}
+.inv-pay-qr .qr-label {
+  font-size: 6.8pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--i-gold-d); margin-top: 1.5mm;
+}
+
+/* Terms */
+.inv-terms { margin-top: 7mm; page-break-inside: avoid; break-inside: avoid; }
+.inv-terms p { margin: 0; color: var(--i-muted); font-size: 7.8pt; line-height: 1.55; }
+
+/* Footer */
+.inv-foot {
+  margin-top: auto; padding-top: 6mm; display: flex; justify-content: center; flex-wrap: wrap; gap: 0 5mm;
+  font-size: 7.4pt; color: var(--i-muted); letter-spacing: .02em;
+}
+.inv-foot { border-top: 0; }
+.inv-foot::before { content: ''; display: block; width: 100%; height: 1px; background: var(--i-line); margin-bottom: 4mm; }
+.inv-foot span + span::before { content: '·'; margin-right: 5mm; color: var(--i-gold); }
+
+/* Status stamp */
+.inv-stamp {
+  position: absolute; top: 52mm; right: 14mm; transform: rotate(-14deg);
+  border: 1mm solid #2f7d5b; color: #2f7d5b; border-radius: 2mm;
+  padding: 1.5mm 6mm; font-weight: 800; font-size: 20pt; letter-spacing: .2em; text-transform: uppercase;
+  opacity: .22; pointer-events: none;
+}
+.inv-stamp.is-void { border-color: #b4443a; color: #b4443a; }
+
+/* ------------------------------- Print -------------------------------- */
+#print-root { display: none; }
+
+@media print {
+  @page {
+    margin: 0 !important;
+  }
+  html, body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body > *:not(#print-root) { display: none !important; }
+  #print-root { display: block !important; }
+  #print-root .inv {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    padding: 14mm 16mm 12mm !important;
+    min-height: 297mm !important;
+  }
+  #print-root .inv.paper-Letter { min-height: 11in !important; }
+  #print-root .inv-rule { top: 0 !important; }
+}

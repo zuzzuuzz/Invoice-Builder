@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large binary files (downloaded automatically on first run)
+bin/cloudflared.exe
+*.exe
+
+# Tunnel runtime state
+data/public_url.txt
+
+# OS generated files
+.DS_Store
+Thumbs.db
