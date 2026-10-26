@@ -1,7 +1,7 @@
 services:
   - type: web
     name: velourcare-invoice
-    env: python
+    runtime: python
+    plan: free
     buildCommand: ""
     startCommand: python server.py
-    plan: free
