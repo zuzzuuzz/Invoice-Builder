@@ -1,5 +1,4 @@
-export default function handler(req, res) {
-  // Set CORS headers
+module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Session-Token');
@@ -12,7 +11,7 @@ export default function handler(req, res) {
     return res.status(200).json({
       ok: true,
       data: null,
-      message: 'Running in high-speed cloud edge mode with browser persistent storage'
+      message: 'Running on Vercel'
     });
   }
 
@@ -24,4 +23,4 @@ export default function handler(req, res) {
   }
 
   return res.status(405).json({ error: 'Method not allowed' });
-}
+};
